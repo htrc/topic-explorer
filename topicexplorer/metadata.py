@@ -233,7 +233,7 @@ def add_htrc_metadata(config, corpus=None, corpus_filename=None):
     if corpus:
         ctx_type = config.get("main", "context_type")
         label_name = doc_label_name(ctx_type)
-        ids = corpus.view_metadata(ctx_type)[label_name]
+        ids = next(os.walk('/media/secure_volume/volumes/'))[1]
         
         htrc_metapath = os.path.abspath(config.get("main", "corpus_file"))
         htrc_metapath = os.path.join(
