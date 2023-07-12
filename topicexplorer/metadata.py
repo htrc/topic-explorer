@@ -79,7 +79,7 @@ from builtins import str
 from ast import literal_eval
 from codecs import open 
 import csv
-import os.path
+import os
 
 import topicexplorer.config
 from topicexplorer.lib.util import isint, is_valid_configfile, bool_prompt
@@ -217,7 +217,7 @@ def add_metadata(corpus, ctx_type, new_metadata, force=False, rename=False):
     return corpus
 
 
-def add_htrc_metadata(config, corpus=None, corpus_filename=None):
+def add_htrc_metadata(config, corpus=None, corpus_filename=None, corpus_path=None):
     import htrc.metadata
 
     config.set("main", "label_module", "topicexplorer.extensions.htrc")
@@ -233,7 +233,7 @@ def add_htrc_metadata(config, corpus=None, corpus_filename=None):
     if corpus:
         ctx_type = config.get("main", "context_type")
         label_name = doc_label_name(ctx_type)
-        ids = next(os.walk('/media/secure_volume/volumes/'))[1]
+        ids = os.listdir(corpus_path)
         
         htrc_metapath = os.path.abspath(config.get("main", "corpus_file"))
         htrc_metapath = os.path.join(
