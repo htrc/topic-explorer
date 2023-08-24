@@ -338,12 +338,15 @@ d3.csv(base_url + "cluster.csv", function (error, data) {
   });
 
   function tick(e) {
-    node.each(moveTowardDataPosition(e.alpha));
+    d3.selectAll(".dot").each(moveTowardDataPosition(e.alpha));
 
-    if (checkbox.node().checked) node.each(collide(e.alpha));
+    if (checkbox.node().checked) d3.selectAll(".dot").each(collide(e.alpha));
 
-    node.attr("cx", function (d) { return d.x; })
+    d3.selectAll(".dot").attr("cx", function (d) { return d.x; })
       .attr("cy", function (d) { return d.y; });
+
+    svg.selectAll("text").attr("x", function(d) {return d.x; })
+       .attr("y", function (d) { return d.y; });
   }
 
   function moveTowardDataPosition(alpha) {
