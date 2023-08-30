@@ -99,6 +99,11 @@ nodeTour.addStep({
   content: "Checking the 'Collision detection' checkbox will minimize overlap among the nodes but distort the underlying similarity relationships.",
   placement: "top"
 });
+var hide_checkbox = controls.append("input")
+  .attr("id", "hidelabels")
+  .attr("type", "checkbox");
+controls.append("span")
+  .text("Hide Labels");
 
 var svg = d3.select("#chart").append("svg")
   .attr("width", width + margin.left + margin.right)
@@ -335,6 +340,15 @@ d3.csv(base_url + "cluster.csv", function (error, data) {
         //.chargeDistance(20)
         .start();
 
+  });
+
+  d3.select("#hidelabels").on("change", function () {
+    if (!hide_checkbox.node().checked)
+      svg.selectAll("text")
+        .attr("transform", "scale(1)");
+    else
+      svg.selectAll("text")
+        .attr("transform", "scale(0)");
   });
 
   function tick(e) {
